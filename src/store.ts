@@ -32,7 +32,7 @@ export default new Vuex.Store({
       state.latitudeDD = latDirMultiplier * (latDeg + (latMin / 60))
       // 'http://maps.googleapis.com/maps/api/geocode/json?latlng=40.5059667,-124.1310000&sensor=false'
       // tslint:disable-next-line
-      Vue.axios.get(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`).then((res: any) => {
+      Vue.axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`).then((res: any) => {
         const address_components = res.data.results[0].address_components
         const county = address_components.filter((component: any) => {
          return component.types.includes('administrative_area_level_2')
