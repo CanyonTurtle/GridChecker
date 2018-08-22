@@ -1,29 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <v-app>
+    <v-toolbar
+      class="primary white--text"
+      app
+    >
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+    <v-footer app>
+      <span>&copy; 2017</span>
+    </v-footer>
+  </v-app>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+<script>
+import HelloWorld from './components/HelloWorld'
 
-@Component({
+export default {
+  name: 'App',
   components: {
-    HelloWorld,
+    HelloWorld
   },
-})
-export default class App extends Vue {}
-</script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  data() {
+    return {
+      rightDrawer: false,
+      title: 'GeoCache Aid'
+    }
+  }
 }
-</style>
+</script>
