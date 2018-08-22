@@ -1,8 +1,7 @@
 <template>
-  <v-container>
+  <v-container lg4>
     <v-layout>
       <v-flex class="text-xs-center" transition="slide-y-transition" v-show="$store.state.county === null">
-        <h1>Paste coordinates to a cache: </h1>
         <v-form ref="degreeinputform" v-model="valid">
             <v-text-field
               v-model="coords"
@@ -21,7 +20,6 @@
         </v-form>
       </v-flex>
       <v-flex class="text-xs-center" transition="slide-y-transition" v-show="$store.state.county !== null">
-        <h1>Cache Info</h1>
         <v-data-table
           hide-actions
           hide-headers
@@ -84,11 +82,6 @@ export default {
            value: false,
            name: 'State',
            val: this.$store.state.locationState
-          },
-          {
-           value: false,
-           name: 'Page',
-           val: (this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'not found'
           }
         ]
       },

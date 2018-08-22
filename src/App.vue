@@ -1,11 +1,5 @@
 <template>
   <v-app>
-    <v-toolbar
-      class="primary white--text"
-      app
-    >
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-    </v-toolbar>
     <v-content>
       <CoordTool/>
     </v-content>
@@ -28,6 +22,9 @@ export default {
       rightDrawer: false,
       title: 'GeoCache Aid'
     }
+  },
+  created() {
+    this.$store.commit('initDelormeData')
   }
 }
 </script>
