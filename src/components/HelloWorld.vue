@@ -50,11 +50,10 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.commit("tryCoordsGeocacheFormat", this.coords)
+      this.$store.commit('tryCoordsGeocacheFormat', this.coords)
     },
     clear() {
-      console.log(this.$refs)
-      this.$refs.degreeinputform.reset()     
+      this.$refs.degreeinputform.reset()
       this.$store.commit('resetState')
     }
   },
@@ -80,6 +79,7 @@ export default {
         ]
       },
       set(val) {
+        return null
       }
     }
   }

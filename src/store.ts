@@ -19,26 +19,27 @@ export default new Vuex.Store({
     },
     // accepts the Geocache.com format for coordinates and pipes them to the information.
     tryCoordsGeocacheFormat(state, coords) {
-      let coordInfo = coords.split(' ')
+      const coordInfo = coords.split(' ')
 
-      let longDirMultiplier = (coordInfo[0] == 'N') ? 1 : -1
-      let longDegComponent = parseInt(coordInfo[1].split('°')[0], 10)
-      let longMinComponent = parseFloat(coordInfo[2])
-      state.longitudeDD = longDirMultiplier * (longDegComponent + (longMinComponent / 60))
+      const longDirMultiplier = (coordInfo[0] === 'N') ? 1 : -1
+      const longDeg = parseInt(coordInfo[1].split('°')[0], 10)
+      const longMin = parseFloat(coordInfo[2])
+      state.longitudeDD = longDirMultiplier * (longDeg + (longMin / 60))
 
-      let latDirMultiplier = (coordInfo[3] == 'E') ? 1 : -1
-      let latDegComponent = parseInt(coordInfo[4].split('°')[0], 10)
-      let latMinComponent = parseFloat(coordInfo[5])
-      state.latitudeDD = latDirMultiplier * (latDegComponent + (latMinComponent / 60))
-      //'http://maps.googleapis.com/maps/api/geocode/json?latlng=40.5059667,-124.1310000&sensor=false'
-      Vue.axios.get(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`).then((res) => {
-        let address_components = res.data.results[0].address_components
-        let county = address_components.filter(component => {
+      const latDirMultiplier = (coordInfo[3] === 'E') ? 1 : -1
+      const latDeg = parseInt(coordInfo[4].split('°')[0], 10)
+      const latMin = parseFloat(coordInfo[5])
+      state.latitudeDD = latDirMultiplier * (latDeg + (latMin / 60))
+      // 'http://maps.googleapis.com/maps/api/geocode/json?latlng=40.5059667,-124.1310000&sensor=false'
+      // tslint:disable-next-line
+      Vue.axios.get(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`).then((res: any) => {
+        const address_components = res.data.results[0].address_components
+        const county = address_components.filter((component: any) => {
          return component.types.includes('administrative_area_level_2')
         })[0].long_name
         state.county = county
 
-        let locationState = address_components.filter(component => {
+        const locationState = address_components.filter((component: any) => {
          return component.types.includes('administrative_area_level_1')
         })[0].long_name
         state.inCali = (locationState === 'California')
