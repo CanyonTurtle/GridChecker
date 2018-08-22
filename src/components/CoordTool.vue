@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container lg8>
     <v-layout>
       <v-flex transition="slide-y-transition" v-show="$store.state.county === null">
         <v-form ref="degreeinputform" v-model="valid">

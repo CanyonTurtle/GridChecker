@@ -7,21 +7,21 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <HelloWorld/>
+      <CoordTool/>
     </v-content>
     <v-footer app>
-      <span>&copy; 2017</span>
+      <span>MIT Licensed. &copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import CoordTool from './components/CoordTool'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CoordTool
   },
   data() {
     return {
