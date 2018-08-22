@@ -87,8 +87,9 @@ export default {
           },
           {
            value: false,
-           name: 'Page',
-           val: (this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'not found'
+           name: 'Norcal DeLorme Challenge Page #',
+           val: (!this.$store.state.inCali) ? 'Coordinates do not qualify, they are NOT in California.'
+            : ((this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'Coordinates are NOT on any page.')
           }
         ]
       },
