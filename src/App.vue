@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <v-toolbar
+    >
+      <v-toolbar-title>DeLorme Page Tool</v-toolbar-title>
+    </v-toolbar>
     <v-content>
       <CoordTool/>
     </v-content>

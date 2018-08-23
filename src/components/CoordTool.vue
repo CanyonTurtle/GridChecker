@@ -20,7 +20,7 @@
             submit
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
-          <FormatInfo></FormatInfo>
+          <FormatInfo class="lineup"></FormatInfo>
         </v-form>
       </v-flex>
       </v-slide-y-transition>
@@ -101,7 +101,7 @@ export default {
           },
           {
            value: false,
-              name: '<a href="https://www.geocaching.com/geocache/GCHANH_california-delorme-challenge-northern?guid=0ed51790-46d9-4d27-bdec-c2893dc19174">California DeLorme<br/> Challenge</a> Page #',
+            name: '<a href="https://www.geocaching.com/geocache/GCHANH_california-delorme-challenge-northern?guid=0ed51790-46d9-4d27-bdec-c2893dc19174">California DeLorme<br/>Challenge (Northern)<br/> [GCHANH]</a> Page #',
            val: (!this.$store.state.inCali) ? 'Coordinates do not qualify, they are NOT in California.'
             : ((this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'Coordinates are NOT on any page.')
           }
@@ -134,5 +134,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.lineup {
+  display: inline;
 }
 </style>

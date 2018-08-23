@@ -19,9 +19,10 @@
         Coordinate Formats
         </v-card-title>
 
-        <v-card-text class="text-xs-center">
-        <span>(Longitude always preceeds latitude.)</span>
-        <div class="text-xs-left">
+        <v-card-text>
+        <div class="text-xs-center">
+        
+          <p>Note: longitude preceeds latitude.</p>
           <v-data-table
             class="text-xs-left"
             hide-actions
@@ -33,6 +34,7 @@
               <td xs6 class="text-xs-left" v-html="props.item.val"></td>
             </template>
           </v-data-table>
+          <p><a href="https://www.ubergizmo.com/how-to/read-gps-coordinates/">How to read GPS Coordinates</a></p>
         </div>
         </v-card-text>
 
@@ -59,7 +61,7 @@
         formatTable: [
           {
             value: false,
-            name: 'DIR',
+            name: '',
             val: 'N 37° 41.200 W 121° 42.400'
           },
           {
@@ -69,7 +71,7 @@
           },
           {
             value: false,
-            name: 'DM',
+            name: 'DMM',
             val: '37 41.202, -121 42.402'
           },
           {
