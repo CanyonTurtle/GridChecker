@@ -1,14 +1,16 @@
 <template>
-  <v-container>
+  <v-container class="maincoordtool">
     <v-layout>
-      <v-flex class="text-xs-center" transition="slide-y-transition" v-show="$store.state.county === null">
-        <h1>Paste coordinates to a cache: </h1>
+      <v-slide-y-transition>
+      <v-flex class="text-xs-center" v-show="$store.state.county === null" key="1">
+        <h2>Supply coordinates</h2>
+        <p>Find coordinates from <a href="https://www.geocaching.com/play/search">Geocaching.com</a>, and paste them here.</p>
         <v-form ref="degreeinputform" v-model="valid">
             <v-text-field
               v-model="coords"
               :rules="coordsRules"
               :counter="30"
-              label="Coordinates (ex: )"
+              label="Coordinates"
             ></v-text-field>
           <v-btn
             class="secondary"
@@ -18,31 +20,43 @@
             submit
           </v-btn>
           <v-btn @click="clear">clear</v-btn>
+          <FormatInfo></FormatInfo>
         </v-form>
       </v-flex>
-      <v-flex class="text-xs-center" transition="slide-y-transition" v-show="$store.state.county !== null">
-        <h1>Cache Info</h1>
+      </v-slide-y-transition>
+      <v-slide-y-transition>
+      <v-flex class="text-xs-center" v-show="$store.state.county !== null" key="2">
+        <h2>Results</h2>
+        <p>{{coords}}</p>
         <v-data-table
+          class="text-xs-left"
           hide-actions
           hide-headers
           :items="infoTable"
         >
           <template slot="items" slot-scope="props">
-            <td>{{props.item.name}}</td>
-            <td>{{props.item.val}}</td>
+            <td xs6 class="text-xs-right" v-html="props.item.name"></td>
+            <td xs6 class="text-xs-left" v-html="props.item.val"></td>
           </template>
         </v-data-table>
         <v-btn @click="clear">Try Another Cache</v-btn>
         <v-btn :href="$store.state.mapURL" class="info">Google Maps</v-btn>
       </v-flex>
+      </v-slide-y-transition>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { coordRegexMatcher } from '../coord-regex-matcher'
+
+import { coordRegexMatcher } from '../coord-format-regexes'
+import FormatInfo from './FormatInfo.vue'
+
 export default {
   name: 'HelloWorld',
+  components: {
+    FormatInfo
+  },
   data() {
     return {
       valid: false,
@@ -87,7 +101,7 @@ export default {
           },
           {
            value: false,
-           name: 'Norcal DeLorme Challenge Page #',
+              name: '<a href="https://www.geocaching.com/geocache/GCHANH_california-delorme-challenge-northern?guid=0ed51790-46d9-4d27-bdec-c2893dc19174">California DeLorme<br/> Challenge</a> Page #',
            val: (!this.$store.state.inCali) ? 'Coordinates do not qualify, they are NOT in California.'
             : ((this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'Coordinates are NOT on any page.')
           }
@@ -103,6 +117,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/* best line here */
+.slide-y-transition-leave-to {
+  transition: none !important;  
+}
 h3 {
   margin: 40px 0 0;
 }

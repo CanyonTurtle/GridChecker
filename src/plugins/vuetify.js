@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { createSimpleTransition } from 'vuetify/es5/util/helpers'
 import {
   Vuetify,
   VApp,
@@ -12,7 +13,10 @@ import {
   transitions,
   VForm,
   VTextField,
-  VDataTable
+  VDataTable,
+  VDialog,
+  VCard,
+  VDivider
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
 
@@ -29,7 +33,10 @@ Vue.use(Vuetify, {
     transitions,
     VForm,
     VTextField,
-    VDataTable
+    VDataTable,
+    VDialog,
+    VCard,
+    VDivider
   },
   theme: {
   primary: "#43A047",
@@ -41,3 +48,7 @@ Vue.use(Vuetify, {
   success: "#4caf50"
 }
 })
+
+const noFadeoutTransition = createSimpleTransition('no-fadeout-transition')
+
+Vue.component('no-fadeout-transition', noFadeoutTransition)

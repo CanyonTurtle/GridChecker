@@ -4,7 +4,7 @@
       <CoordTool/>
     </v-content>
     <v-footer app>
-      <span>MIT Licensed. &copy; 2018</span>
+        <span>MIT Licensed. &copy; 2018. Please, Star on <a href="https://github.com/CanyonTurtle/DelormePageTool">GitHub</a> :)</span>
     </v-footer>
   </v-app>
 </template>
