@@ -1,7 +1,7 @@
 
 // this matches a Geocache.com input.
 // example:N 37° 57.926 W 121° 58.667 
-export const coordGeocacheDotComRegex = /^ *[NS] *\d{1,3}° \d{1,2}\.\d{1,3} [EW] \d{1,3}° \d{1,2}\.\d{1,3} *$/
+export const coordGeocacheDotComRegex = /^ *[NS] *\d{1,3}° \d{1,2}\.\d{1,3}'? [EW] \d{1,3}° \d{1,2}\.\d{1,3}'? *$/
 
 export const coordDDRegex = /^ *-?\d{1,3}\.+\d{1,7} ?, ?-?\d{1,3}\.+\d{1,7} *$/
 
