@@ -1,5 +1,16 @@
 // the list of formats.
+// add support for new formats by using this template:
+// {
+//   abbreviatedName: a 5-character-or-less ticker for the format.
+//   example: a string that resembles an example input.
+//   formatRegex: a regex that identifies whether or not a string is this type of format.
+//   parseCoordsIntoDD: a function accepting the input coord string, and a callback for 
+//   updating the store, and will parse out and/or convert to the decimal-degree form of the coordinates 
+//   and call the callback with the two longitude/latitude DD coordinate values.
+// }
+}
 export const formats = [
+  // format like on geocache.com
   {
     abbreviatedName: '',
     example: 'N 37° 41.200 W 121° 42.400',
@@ -18,9 +29,9 @@ export const formats = [
       const longitudeDD = longDirMultiplier * (longDeg + (longMin / 60))
       const latitudeDD = latDirMultiplier * (latDeg + (latMin / 60))
       storeUpdater(longitudeDD, latitudeDD)
-
     }
   },
+  // Decimal-degree notation
   {
     abbreviatedName: 'DD',
     example: '37.6867, -121.7067',
@@ -32,6 +43,7 @@ export const formats = [
       storeUpdater(longitudeDD, latitudeDD)
     }
   },
+  // Degree ldecimal-minute notation
   {
     abbreviatedName: 'DMM',
     example: '37 41.202, -121 42.402',
@@ -54,6 +66,7 @@ export const formats = [
 
     }
   },
+  // Degree minute second notation
   {
     abbreviatedName: 'DMS',
     example: '37 41 12, -121 42 24',
