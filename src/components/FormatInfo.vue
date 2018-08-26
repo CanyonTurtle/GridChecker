@@ -53,33 +53,18 @@
   </div>
 </template>
 <script>
+import { formats } from '../coord-format-regexes.ts'
+
   export default {
     name: 'FormatInfo',
     data () {
       return {
         dialog: false,
-        formatTable: [
-          {
-            value: false,
-            name: '',
-            val: 'N 37° 41.200 W 121° 42.400'
-          },
-          {
-            value: false,
-            name: 'DD',
-            val: '37.6867, -121.7067'
-          },
-          {
-            value: false,
-            name: 'DMM',
-            val: '37 41.202, -121 42.402'
-          },
-          {
-            value: false,
-            name: 'DMS',
-            val: '37 41 12, -121 42 24'
-          },
-        ]
+        formatTable: formats.map(format => ({
+          value: false,
+          name: format.abbreviatedName,
+          val: format.example
+        }))
       }
     }
   }

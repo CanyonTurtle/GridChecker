@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { parseLongLatDD } from './coord-format-regexes'
+import { coordsIntoDD } from './coord-format-regexes'
 
 Vue.use(Vuex);
 
@@ -47,7 +47,7 @@ export default new Vuex.Store({
     // accepts the Geocache.com format for coordinates and pipes them to the information.
     tryCoordsGeocacheFormat(state, coords) {
 
-      parseLongLatDD(coords, (longitudeDD: any, latitudeDD: any) => {
+      coordsIntoDD(coords, (longitudeDD: any, latitudeDD: any) => {
         state.longitudeDD = longitudeDD
         state.latitudeDD = latitudeDD
 

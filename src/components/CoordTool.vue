@@ -49,7 +49,7 @@
 
 <script>
 
-import { coordRegexMatcher } from '../coord-format-regexes'
+import { inputValidator } from '../coord-format-regexes'
 import FormatInfo from './FormatInfo.vue'
 
 export default {
@@ -62,7 +62,7 @@ export default {
       valid: false,
       coords: '',
       coordsRules: [
-        coordRegexMatcher
+        inputValidator
       ]
     }
   },
