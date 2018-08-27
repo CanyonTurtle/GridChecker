@@ -8,7 +8,6 @@
 //   updating the store, and will parse out and/or convert to the decimal-degree form of the coordinates 
 //   and call the callback with the two longitude/latitude DD coordinate values.
 // }
-}
 export const formats = [
   // format like on geocache.com
   {
