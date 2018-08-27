@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-toolbar
+        class="warning"
     >
       <v-toolbar-title>DeLorme Page Tool</v-toolbar-title>
     </v-toolbar>

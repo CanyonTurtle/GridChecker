@@ -5,7 +5,7 @@
       <v-flex class="text-xs-center" v-show="$store.state.county === null" key="1">
         <h2>Supply coordinates</h2>
         <p>Find coordinates from <a href="https://www.geocaching.com/play/search">Geocaching.com</a>, and paste them here.</p>
-        <v-form ref="degreeinputform" v-model="valid">
+        <v-form ref="degreeinputform" v-model="valid" @submit.prevent="submit">
             <v-text-field
               v-model="coords"
               :rules="coordsRules"
@@ -13,7 +13,7 @@
               label="Coordinates"
             ></v-text-field>
           <v-btn
-            class="secondary"
+            class="warning black--text"
             :disabled="!valid"
             @click="submit"
           >
@@ -40,7 +40,7 @@
           </template>
         </v-data-table>
         <v-btn @click="clear">Try Another Cache</v-btn>
-        <v-btn :href="$store.state.mapURL" class="info">Google Maps</v-btn>
+        <v-btn :href="$store.state.mapURL" class="secondary">Google Maps</v-btn>
       </v-flex>
       </v-slide-y-transition>
     </v-layout>
@@ -67,7 +67,8 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit(event) {
+      event.preventDefault()
       this.$store.commit('tryCoordsGeocacheFormat', this.coords)
     },
     clear() {
