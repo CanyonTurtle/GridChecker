@@ -16,7 +16,8 @@ import {
   VDataTable,
   VDialog,
   VCard,
-  VDivider
+  VDivider,
+  VAlert
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
 
@@ -36,7 +37,8 @@ Vue.use(Vuetify, {
     VDataTable,
     VDialog,
     VCard,
-    VDivider
+    VDivider,
+    VAlert
   },
   theme: {
   primary: "#43A047",

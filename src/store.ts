@@ -16,7 +16,8 @@ const initialState = {
   delormeData: {
     norcalPolys: [],
     page: null
-  }
+  },
+  httpErr: null
 }
 
 export default new Vuex.Store({
@@ -80,21 +81,22 @@ export default new Vuex.Store({
           // const county = address_components.filter((component: any) => {
           //  return component.types.includes('administrative_area_level_2')
           // })[0].long_name
-          const county = res.data.County["name"]
+          const county = res.data.County["name"] || "unknown"
           state.county = county
 
           // const locationState = address_components.filter((component: any) => {
           //  return component.types.includes('administrative_area_level_1')
           // })[0].long_name
 
-          const locationState = res.data.State["name"]
+          const locationState = res.data.State["name"] || "NOT in the United States"
           state.locationState = locationState
 
           state.inCali = (locationState === 'California')
-          console.log(state.inCali)
+          // console.log(state.inCali)
           state.mapURL = `https://www.google.com/maps/search/?api=1&query=${state.longitudeDD},${state.latitudeDD}`
+          state.httpErr = null
 
-        })
+        }).catch(() => {state.httpErr = true})
       })
     }
   },
