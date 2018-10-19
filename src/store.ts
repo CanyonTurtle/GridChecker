@@ -44,6 +44,7 @@ export default new Vuex.Store({
       state.inCali = null
       state.locationState = null
       state.mapURL = '#'
+      state.httpErr = null
     },
     // accepts the Geocache.com format for coordinates and pipes them to the information.
     tryCoordsGeocacheFormat(state, coords) {
