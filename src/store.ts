@@ -69,18 +69,29 @@ export default new Vuex.Store({
         }
 
         // make a request to Google maps developer API to get the county/state information, and the map url.
-        Vue.axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`).then((res: any) => {
-          const address_components = res.data.results[0].address_components
-          const county = address_components.filter((component: any) => {
-           return component.types.includes('administrative_area_level_2')
-          })[0].long_name
+        // https://geo.fcc.gov/api/census/block/find?latitude=37.6867&longitude=-121.7067&format=json
+        //`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`
+        Vue.axios.get(`https://geo.fcc.gov/api/census/block/find?latitude=${(state.longitudeDD).toFixed(4)}&longitude=${(state.latitudeDD).toFixed(4)}&format=json`).then((res: any) => {
+          // const address_components = res.data.results[0].address_components
+          
+          // console.log(res.data)
+          // console.log(county)
+          
+          // const county = address_components.filter((component: any) => {
+          //  return component.types.includes('administrative_area_level_2')
+          // })[0].long_name
+          const county = res.data.County["name"]
           state.county = county
 
-          const locationState = address_components.filter((component: any) => {
-           return component.types.includes('administrative_area_level_1')
-          })[0].long_name
+          // const locationState = address_components.filter((component: any) => {
+          //  return component.types.includes('administrative_area_level_1')
+          // })[0].long_name
+
+          const locationState = res.data.State["name"]
           state.locationState = locationState
+
           state.inCali = (locationState === 'California')
+          console.log(state.inCali)
           state.mapURL = `https://www.google.com/maps/search/?api=1&query=${state.longitudeDD},${state.latitudeDD}`
 
         })
