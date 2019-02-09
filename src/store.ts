@@ -75,10 +75,8 @@ export default new Vuex.Store({
         //`https://maps.googleapis.com/maps/api/geocode/json?latlng=${state.longitudeDD},${state.latitudeDD}&sensor=false`
         Vue.axios.get(`https://geo.fcc.gov/api/census/block/find?latitude=${(state.longitudeDD).toFixed(4)}&longitude=${(state.latitudeDD).toFixed(4)}&format=json`).then((res: any) => {
           // const address_components = res.data.results[0].address_components
-          
           // console.log(res.data)
           // console.log(county)
-          
           // const county = address_components.filter((component: any) => {
           //  return component.types.includes('administrative_area_level_2')
           // })[0].long_name
