@@ -13,7 +13,7 @@ export const formats = [
   {
     abbreviatedName: '',
     example: 'N 37° 41.200 W 121° 42.400',
-    formatRegex: /^ *[NS] *\d{1,3}° \d{1,2}\.\d{1,3}'? [EW] \d{1,3}° \d{1,2}\.\d{1,3}'? *$/,
+    formatRegex: /^ *[NS] *\d{1,3}° *\d{1,2}\.\d{1,3}'? *[EW] *\d{1,3}° \d{1,2}\.\d{1,3}'? *$/,
     parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
       const coordInfo = inputCoords.split(' ')
 
