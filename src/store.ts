@@ -42,7 +42,7 @@ export default new Vuex.Store({
           Vue.axios.get("Grids/" + file).then((boundsData: any) => {
             let polys:any = boundsData.data.split('\n');
 
-            let grid = {
+            let grid:any = {
               label: polys[0].split(',')[1],
               link: polys[1].split(',')[1],
               requiresState: polys[2].split(',')[1],
@@ -187,7 +187,7 @@ export default new Vuex.Store({
           }
 
           state.isResultLoaded = true;
-        }).catch((err) => {console.log(err);state.httpErr = true})
+        }).catch((err:any) => {console.log(err);state.httpErr = true})
       })
     }
   },
