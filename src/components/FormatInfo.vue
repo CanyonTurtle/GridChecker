@@ -29,9 +29,17 @@
             hide-headers
             :items="formatTable"
           >
-            <template slot="items" slot-scope="props">
-              <td xs6 class="text-xs-right" v-html="props.item.name"></td>
-              <td xs6 class="text-xs-left" v-html="props.item.val"></td>
+            <template class="text-xs-left" slot="items" slot-scope="props">
+              <v-layout justify-center>
+              <v-flex xs2 class="text-xs-left">
+                <td class="text-xs-right" v-html="props.item.name"></td>
+              </v-flex>
+              <v-spacer>
+              </v-spacer>
+              <v-flex xs10 class="text-xs-center">
+                <td class="text-xs-left" v-html="props.item.val"></td>
+              </v-flex>
+              </v-layout>
             </template>
           </v-data-table>
           <p><a href="https://www.ubergizmo.com/how-to/read-gps-coordinates/">How to read GPS Coordinates</a></p>
