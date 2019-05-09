@@ -50,7 +50,7 @@ export default new Vuex.Store({
               polys: []
             }
 
-            state.supportedGrids.push(`<!--${grid.label}--><a href=${grid.link}>${grid.label}</a>`)
+            state.supportedGrids.push(`<!--${grid.label}--><a target="_blank" href=${grid.link}>${grid.label}</a>`)
 
             // s l o w - O(n^3) - but needs to happen after all gets.
             state.supportedGrids.sort()
@@ -158,7 +158,7 @@ export default new Vuex.Store({
                 found = true
                 state.infoTable.push({
                   value: false,
-                  name: `<a href=${grid.link}>${grid.label}</a>`,
+                  name: `<a target="_blank" href=${grid.link}>${grid.label}</a>`,
                   val: poly[4]
                 })
               }

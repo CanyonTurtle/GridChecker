@@ -32,7 +32,7 @@
             :items="$store.state.supportedGrids"
           >
             <template slot="items" slot-scope="props">
-              <td xs6 class="text-xs-center" v-html="props.item"></td>
+              <td xs6 class="text-xs-left" v-html="props.item"></td>
             </template>
           </v-data-table>
         </div>
