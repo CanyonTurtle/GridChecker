@@ -182,7 +182,7 @@ export default new Vuex.Store({
             state.infoTable.push({
               value: false,
               name: "results",
-              val: "There are no matches from any supported grids for this cache."
+              val: "There are no matches from any supported grids for these coordinates."
             })
           }
 
