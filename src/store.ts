@@ -35,10 +35,12 @@ export default new Vuex.Store({
   state: JSON.parse(JSON.stringify(initialState)),
   mutations: {
     initGridData(state) {
+      function recursiveTryOuter() {
       state.supportedGrids = []
       Vue.axios.get('grid-manifest.txt').then((manifest: any) => {
         let files = manifest.data.split('\n')
         for(let file of files) {
+          function recursiveTry() {
           Vue.axios.get("Grids/" + file).then((boundsData: any) => {
             let polys:any = boundsData.data.split('\n');
 
@@ -68,12 +70,17 @@ export default new Vuex.Store({
               grid.polys.push(poly)
             }
             state.grids.push(grid)
-          })
+          }).catch((err:any) =>{console.log(err);recursiveTry()})
+
+          }
+          recursiveTry()
 
         }
 
         // console.log(state.supportedGrids)
-      })
+      }).catch((err:any) => {console.log(err);recursiveTryOuter()})
+      }
+      recursiveTryOuter()
     },
     resetState(state) {
       state.county = null
