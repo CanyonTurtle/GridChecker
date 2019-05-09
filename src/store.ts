@@ -6,6 +6,7 @@ import { coordsIntoDD } from './coord-format-regexes'
 Vue.use(Vuex);
 
 const initialState = {
+  supportedGrids: [],
   isResultLoaded: false,
   //  longitudeDD: 0,
   //  latitudeDD: 0,
@@ -34,10 +35,10 @@ export default new Vuex.Store({
   state: JSON.parse(JSON.stringify(initialState)),
   mutations: {
     initGridData(state) {
+      state.supportedGrids = []
       Vue.axios.get('grid-manifest.txt').then((manifest: any) => {
         let files = manifest.data.split('\n')
         for(let file of files) {
-          console.log(file)
           Vue.axios.get("Grids/" + file).then((boundsData: any) => {
             let polys:any = boundsData.data.split('\n');
 
@@ -48,6 +49,14 @@ export default new Vuex.Store({
               requiresCounty: polys[3].split(',')[1],
               polys: []
             }
+
+            state.supportedGrids.push(`<!--${grid.label}--><a href=${grid.link}>${grid.label}</a>`)
+
+            // s l o w - O(n^3) - but needs to happen after all gets.
+            state.supportedGrids.sort()
+
+            // console.log(file)
+
             for(let i = 5; i < polys.length; i++) {
               let polyRawRow = polys[i].split(',')
               let poly = []
@@ -63,6 +72,7 @@ export default new Vuex.Store({
 
         }
 
+        // console.log(state.supportedGrids)
       })
     },
     resetState(state) {
@@ -82,7 +92,7 @@ export default new Vuex.Store({
         // https://geo.fcc.gov/api/census/block/find?latitude=37.6867&longitude=-121.7067&format=json
         //`https://maps.googleapis.com/maps/api/geocode/json?latlng=${longitudeDD},${latitudeDD}&sensor=false`
         let req = `https://geo.fcc.gov/api/census/block/find?latitude=${(longitudeDD).toFixed(4)}&longitude=${(latitudeDD).toFixed(4)}&format=json`
-        console.log(req)
+        // console.log(req)
         Vue.axios.get(req).then((res: any) => {
           // const address_components = res.data.results[0].address_components
           // console.log(res.data)

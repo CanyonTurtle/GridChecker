@@ -11,9 +11,9 @@
 export const formats = [
   // format like on geocache.com
   {
-    abbreviatedName: '',
+    abbreviatedName: 'GEO',
     example: 'N 37° 41.200 W 121° 42.400',
-    formatRegex: /^ *[NS] *\d{1,3}° *\d{1,2}\.\d{1,3}'? *[EW] *\d{1,3}° \d{1,2}\.\d{1,3}'? *$/,
+    formatRegex: /^ *[NS] \d{1,3}° \d{1,2}\.\d{1,3}'? [EW] \d{1,3}° \d{1,2}\.\d{1,3}'? *$/,
     parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
       const coordInfo = inputCoords.split(' ')
 
@@ -28,6 +28,41 @@ export const formats = [
       const longitudeDD = longDirMultiplier * (longDeg + (longMin / 60))
       const latitudeDD = latDirMultiplier * (latDeg + (latMin / 60))
       storeUpdater(longitudeDD, latitudeDD)
+    }
+  },
+  {
+    abbreviatedName: 'MAP',
+    example: '37°41\'12.0"N 121°42\'24.0"W',
+    // todo figure out number of things for second place.
+    formatRegex: /^\d{1,3}°\d{1,2}\'\d{1,3}\.\d\"[NS] *\d{1,3}°\d{1,2}\'\d{1,3}\.\d\"[EW] *$/,
+    parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
+      const coordInfo = inputCoords.split(' ')
+
+      const longDirMultiplier = coordInfo[0].includes('N')? 1 : -1
+
+      const longDeg = parseInt(coordInfo[0].split('°')[0], 10)
+      let longMin = parseFloat(coordInfo[0].split('°')[1])
+      longMin += parseFloat(coordInfo[0].split('\'')[1]) / 60
+
+      console.log(longDeg)
+      console.log(longMin)
+
+      const latDirMultiplier = coordInfo[1].includes('E')? 1 : -1
+
+      const latDeg = parseInt(coordInfo[1].split('°')[0], 10)
+      let latMin = parseFloat(coordInfo[1].split('°')[1])
+      latMin += parseFloat(coordInfo[1].split('\'')[1]) / 60
+
+      console.log(latDeg)
+      console.log(latMin)
+
+      const longitudeDD = longDirMultiplier * (longDeg + (longMin / 60))
+      const latitudeDD = latDirMultiplier * (latDeg + (latMin / 60))
+
+      console.log(longitudeDD)
+      console.log(latitudeDD)
+
+      storeUpdater(longitudeDD,  latitudeDD);
     }
   },
   // Decimal-degree notation
@@ -46,7 +81,7 @@ export const formats = [
   {
     abbreviatedName: 'DMM',
     example: '37 41.202, -121 42.402',
-    formatRegex: /^ *-?\d{1,3} \d{1,3}\.+\d{1,7} *, ?-?\d{1,3} \d{1,3}\.+\d{1,7} *$/,
+    formatRegex: /^ *-?\d{1,3} *\d{1,3}\.+\d{1,7} *, *-?\d{1,3} *\d{1,3}\.+\d{1,7} *$/,
     parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
       const coordInfo = inputCoords.split(',')
 
@@ -69,7 +104,7 @@ export const formats = [
   {
     abbreviatedName: 'DMS',
     example: '37 41 12, -121 42 24',
-    formatRegex: /^ *-?\d{1,3} +\d{1,2} +\d{1,3}, ?-?\d{1,3} +\d{1,2} +\d{1,3} *$/,
+    formatRegex: /^ *-?\d{1,3} +\d{1,2} +\d{1,3}, *-?\d{1,3} +\d{1,2} +\d{1,3} *$/,
     parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
       const coordInfo = inputCoords.split(',')
 

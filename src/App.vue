@@ -3,7 +3,16 @@
     <v-toolbar
         class="warning"
     >
-      <v-toolbar-title>Grid Checker</v-toolbar-title>
+      <v-layout justify-space-between fill-height/>
+        <v-flex xs6>
+          <v-toolbar-title class="text-xs-left">Grid Checker</v-toolbar-title>
+        </v-flex>
+        <v-spacer>
+        </v-spacer>
+        <v-flex xs6 class="text-xs-right">
+          <SupportedGrids class="lineup"></SupportedGrids>
+        </v-flex>
+      </v-layout>
     </v-toolbar>
     <v-content>
       <CoordTool/>
@@ -16,11 +25,13 @@
 
 <script>
 import CoordTool from './components/CoordTool'
+import SupportedGrids from './components/SupportedGrids.vue'
 
 export default {
   name: 'App',
   components: {
-    CoordTool
+    CoordTool,
+    SupportedGrids
   },
   data() {
     return {
@@ -33,3 +44,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.lineup {
+  display: inline;
+}
+</style>

@@ -5,10 +5,10 @@
       width="500"
     >
       <v-btn
+        flat
         slot="activator"
-        class="info"
       >
-        Formats
+        Supported Grids
       </v-btn>
 
       <v-card>
@@ -16,25 +16,25 @@
           class="headline grey lighten-2"
           primary-title
         >
-        Coordinate Formats
+        Supported Grids
         </v-card-title>
 
         <v-card-text>
+
+
         <div class="text-xs-center">
         
-          <p>Note: longitude preceeds latitude. The spacing must be exactly as shown.</p>
+          <p>For more information, choose one of the grids.</p>
           <v-data-table
-            class="text-xs-center"
+            class="text-xs-left"
             hide-actions
             hide-headers
-            :items="formatTable"
+            :items="$store.state.supportedGrids"
           >
             <template slot="items" slot-scope="props">
-              <td xs6 class="text-xs-right" v-html="props.item.name"></td>
-              <td xs6 class="text-xs-left" v-html="props.item.val"></td>
+              <td xs6 class="text-xs-center" v-html="props.item"></td>
             </template>
           </v-data-table>
-          <p><a href="https://www.ubergizmo.com/how-to/read-gps-coordinates/">How to read GPS Coordinates</a></p>
         </div>
         </v-card-text>
 
@@ -45,7 +45,7 @@
             flat
             @click="dialog = false"
           >
-          Ok
+          Back
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -56,18 +56,11 @@
 import { formats } from '../coord-format-regexes.ts'
 
   export default {
-    name: 'FormatInfo',
+    name: 'SupportedGrids',
     data () {
       return {
         dialog: false,
-        formatTable: formats.map(format => ({
-          value: false,
-          name: format.abbreviatedName,
-          val: format.example
-        }))
       }
     }
   }
 </script>
-<style scoped>
-</style>

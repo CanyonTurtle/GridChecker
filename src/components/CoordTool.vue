@@ -26,7 +26,7 @@
                   >
                   submit
                 </v-btn>
-                  <v-btn @click="clear">clear</v-btn>
+                  <v-btn class="info" @click="clear" :disabled="!coords">clear</v-btn>
                   <FormatInfo class="lineup"></FormatInfo>
           </v-form>
         </v-flex>
@@ -42,8 +42,8 @@
             :items="$store.state.infoTable"
             >
             <template slot="items" slot-scope="props">
-              <td xs6 class="text-xs-right" v-html="props.item.name"></td>
-              <td xs6 class="text-xs-left" v-html="props.item.val"></td>
+              <td xs6 class="half text-xs-right" v-html="props.item.name"></td>
+              <td xs6 class="half text-xs-left" v-html="props.item.val"></td>
             </template>
           </v-data-table>
           <v-btn @click="clear">Try Another Cache</v-btn>
@@ -147,5 +147,8 @@ a {
 }
 .lineup {
   display: inline;
+}
+.half {
+  width: 50%;
 }
 </style>
