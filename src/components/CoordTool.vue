@@ -2,7 +2,7 @@
   <v-container class="maincoordtool">
     <v-layout align-center justify-center>
       <v-slide-y-transition>
-        <v-flex sm8 md6 lg5 class="text-xs-center" v-show="$store.state.county === null" key="1">
+        <v-flex sm8 md6 lg5 class="text-xs-center" v-show="!$store.state.isResultLoaded" key="1">
           <h2>Supply coordinates</h2>
           <p>Find coordinates from <a href="https://www.geocaching.com/play/search">Geocaching.com</a>, and paste them here.</p>
           <v-form ref="degreeinputform" v-model="valid" @submit.prevent="submit">
@@ -32,14 +32,14 @@
         </v-flex>
       </v-slide-y-transition>
       <v-slide-y-transition>
-        <v-flex sm8 md6 lg5 class="text-xs-center" v-show="$store.state.county !== null" key="2">
+        <v-flex sm8 md6 lg5 class="text-xs-center" v-show="$store.state.isResultLoaded" key="2">
           <h2>Results</h2>
           <p>{{coords}}</p>
           <v-data-table
             class="text-xs-left"
             hide-actions
             hide-headers
-            :items="infoTable"
+            :items="$store.state.infoTable"
             >
             <template slot="items" slot-scope="props">
               <td xs6 class="text-xs-right" v-html="props.item.name"></td>
@@ -79,46 +79,48 @@ export default {
       this.$store.commit('tryCoordsGeocacheFormat', this.coords)
     },
     clear() {
+      // console.log("clearing")
       this.$refs.degreeinputform.reset()
       this.$store.commit('resetState')
     }
   },
   computed: {
-    infoTable: {
-      get() {
-        return [
-          {
-            value: false,
-            name: 'Longitude (DD)',
-            val: this.$store.state.longitudeDD.toFixed(4)
-          },
-          {
-            value: false,
-            name: 'Latitude (DD)',
-            val: this.$store.state.latitudeDD.toFixed(4)
-          },
-          {
-            value: false,
-            name: 'County',
-            val: this.$store.state.county
-          },
-          {
-            value: false,
-            name: 'State',
-            val: this.$store.state.locationState
-          },
-          {
-            value: false,
-            name: '<a href="https://www.geocaching.com/geocache/GCHANH_california-delorme-challenge-northern?guid=0ed51790-46d9-4d27-bdec-c2893dc19174">California DeLorme<br/>Challenge (Northern)<br/> [GCHANH]</a> Page #',
-            val: (!this.$store.state.inCali) ? 'Coordinates do not qualify, they are NOT in California.'
-            : ((this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'Coordinates are NOT on any page.')
-          }
-        ]
-      },
-      set(val) {
-        return null
-      }
-    }
+    // infoTable: this.$store.state.infoTable
+//     infoTable: {
+//       get() {
+//         return [
+//           {
+//             value: false,
+//             name: 'Longitude (DD)',
+//             val: this.$store.state.longitudeDD.toFixed(4)
+//           },
+//           {
+//             value: false,
+//             name: 'Latitude (DD)',
+//             val: this.$store.state.latitudeDD.toFixed(4)
+//           },
+//           {
+//             value: false,
+//             name: 'County',
+//             val: this.$store.state.county
+//           },
+//           {
+//             value: false,
+//             name: 'State',
+//             val: this.$store.state.locationState
+//           },
+//           {
+//             value: false,
+//             name: '<a href="https://www.geocaching.com/geocache/GCHANH_california-delorme-challenge-northern?guid=0ed51790-46d9-4d27-bdec-c2893dc19174">California DeLorme<br/>Challenge (Northern)<br/> [GCHANH]</a> Page #',
+//             val: (!this.$store.state.inCali) ? 'Coordinates do not qualify, they are NOT in California.'
+//             : ((this.$store.state.delormeData.page !== null) ? this.$store.state.delormeData.page : 'Coordinates are NOT on any page.')
+//           }
+//         ]
+//       },
+//       set(val) {
+//         return null
+//       }
+//     }
   }
 }
 </script>

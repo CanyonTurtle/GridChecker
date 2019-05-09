@@ -3,13 +3,13 @@
     <v-toolbar
         class="warning"
     >
-      <v-toolbar-title>DeLorme Page Tool</v-toolbar-title>
+      <v-toolbar-title>Grid Checker</v-toolbar-title>
     </v-toolbar>
     <v-content>
       <CoordTool/>
     </v-content>
     <v-footer app>
-        <span>MIT Licensed. &copy; 2018. Please, Star on <a href="https://github.com/CanyonTurtle/DelormePageTool">GitHub</a> :)</span>
+        <span>MIT Licensed. &copy; 2019. Please, Star on <a href="https://github.com/CanyonTurtle/DelormePageTool">GitHub</a> :)</span>
     </v-footer>
   </v-app>
 </template>
@@ -29,7 +29,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit('initDelormeData')
+    this.$store.commit('initGridData')
   }
 }
 </script>

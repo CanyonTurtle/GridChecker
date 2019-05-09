@@ -19,3 +19,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# the manifest that should be generated on the build
+/public/grid-manifest.txt
