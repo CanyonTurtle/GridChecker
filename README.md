@@ -2,7 +2,7 @@
 Find information about a Geocache based on it's coordinates from Geocache.com.
 Specifically for use with the NorCal DeLorme Challenge.
 
-MIT Licensed, 2018.
+MIT Licensed, 2019.
 
 ## Project setup
 ```
