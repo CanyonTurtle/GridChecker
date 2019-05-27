@@ -28,50 +28,68 @@ const initialState = {
     }
   ],
   httpErr: null,
-  infoTable: []
+  httpErrMsg: null,
+  infoTable: [],
+  httpAttemptCount: 0,
+  httpMaxAttempts: 5,
 }
 
 export default new Vuex.Store({
   state: JSON.parse(JSON.stringify(initialState)),
   mutations: {
     initGridData(state) {
+      let manifestAttemptCount = 0;
       function recursiveTryOuter() {
+        manifestAttemptCount++
+        console.log("outer outer hi: " + manifestAttemptCount)
+        if(manifestAttemptCount > state.httpMaxAttempts) {
+          state.httpErr = true;
+          state.httpErrMsg = "could not load the list of grids.";
+          return
+        }
       state.supportedGrids = []
       Vue.axios.get('grid-manifest.txt').then((manifest: any) => {
         let files = manifest.data.split('\n')
         for(let file of files) {
+          let gridAttemptCount = 0
           function recursiveTry() {
-          Vue.axios.get("Grids/" + file).then((boundsData: any) => {
-            let polys:any = boundsData.data.split('\n');
-
-            let grid:any = {
-              label: polys[0].split(',')[1],
-              link: polys[1].split(',')[1],
-              requiresState: polys[2].split(',')[1],
-              requiresCounty: polys[3].split(',')[1],
-              polys: []
+            gridAttemptCount++
+            console.log("inner: " + gridAttemptCount)
+            if(gridAttemptCount > state.httpMaxAttempts) {
+              state.httpErr = true;
+              state.httpErrMsg = "could not fetch a grid ("+file+")"
+              return
             }
+            Vue.axios.get("Grids/" + file).then((boundsData: any) => {
+              let polys:any = boundsData.data.split('\n');
 
-            state.supportedGrids.push(`<!--${grid.label}--><a target="_blank" href=${grid.link}>${grid.label}</a>`)
+              let grid:any = {
+                label: polys[0].split(',')[1],
+                link: polys[1].split(',')[1],
+                requiresState: polys[2].split(',')[1],
+                requiresCounty: polys[3].split(',')[1],
+                polys: []
+              }
 
-            // s l o w - O(n^3) - but needs to happen after all gets.
-            state.supportedGrids.sort()
+              state.supportedGrids.push(`<!--${grid.label}--><a target="_blank" href=${grid.link}>${grid.label}</a>`)
 
-            // console.log(file)
+              // s l o w - O(n^3) - but needs to happen after all gets.
+              state.supportedGrids.sort()
 
-            for(let i = 5; i < polys.length; i++) {
-              let polyRawRow = polys[i].split(',')
-              let poly = []
-              poly.push(parseFloat(polyRawRow[0]))
-              poly.push(parseFloat(polyRawRow[1]))
-              poly.push(parseFloat(polyRawRow[2]))
-              poly.push(parseFloat(polyRawRow[3]))
-              poly.push(polyRawRow[4])
-              grid.polys.push(poly)
-            }
-            state.grids.push(grid)
-          }).catch((err:any) =>{console.log(err);recursiveTry()})
+              // console.log(file)
 
+              for(let i = 5; i < polys.length; i++) {
+                let polyRawRow = polys[i].split(',')
+                let poly = []
+                poly.push(parseFloat(polyRawRow[0]))
+                poly.push(parseFloat(polyRawRow[1]))
+                poly.push(parseFloat(polyRawRow[2]))
+                poly.push(parseFloat(polyRawRow[3]))
+                poly.push(polyRawRow[4])
+                grid.polys.push(poly)
+              }
+              state.grids.push(grid)
+            }).catch((err:any) =>{console.log(err);recursiveTry()})
           }
           recursiveTry()
 
@@ -87,6 +105,7 @@ export default new Vuex.Store({
       state.locationState = null
       state.mapURL = '#'
       state.httpErr = null
+      state.httpErrMsg = null
       state.isResultLoaded =  false
       state.infoTable = []
     },
@@ -194,7 +213,11 @@ export default new Vuex.Store({
           }
 
           state.isResultLoaded = true;
-        }).catch((err:any) => {console.log(err);state.httpErr = true})
+        }).catch((err:any) => {
+          console.log(err);
+          state.httpErr = true;
+          state.httpErrMsg = "could not fetch cache location info.";
+        })
       })
     }
   },

@@ -124,6 +124,16 @@ export const formats = [
       storeUpdater(longitudeDD, latitudeDD)
     }
   }
+  /*
+  ,
+  {
+    abbreviatedName: 'BETTER MAP',
+    example: 'N37 12.345, W121 67.890',
+    formatRegex: /^ *[NS] *\d{1,2}°? +\d{1,2}\.\d{0,3} +[EW] *\d{1,2}°? +\d{1,2}\.\d{0,3}/,
+    parseCoordsIntoDD(inputCoords: string, storeUpdater: Function) {
+    }
+  }
+   */
 ]
 
 // given text input, return whether or not the input matches ANY of the coordinate forms.

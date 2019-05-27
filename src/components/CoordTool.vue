@@ -17,7 +17,7 @@
                 type="error"
                 transition="slide-y-transition"
                 >
-                These coordinates are not reachable..
+                Network Error - {{$store.state.httpErrMsg}}
               </v-alert>
                 <v-btn
                   class="warning black--text"
